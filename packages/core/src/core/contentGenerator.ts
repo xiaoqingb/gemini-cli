@@ -24,6 +24,7 @@ import { FakeContentGenerator } from './fakeContentGenerator.js';
 import { parseCustomHeaders } from '../utils/customHeaderUtils.js';
 import { RecordingContentGenerator } from './recordingContentGenerator.js';
 import { getVersion, resolveModel } from '../../index.js';
+import { WLM_BASE_URL } from '../wlm-env-config.js';
 
 /**
  * Interface abstracting the core functionalities for generating content and counting tokens.
@@ -67,7 +68,7 @@ export async function createContentGeneratorConfig(
 ): Promise<ContentGeneratorConfig> {
   const geminiApiKey =
     process.env['GEMINI_API_KEY'] || (await loadApiKey()) || undefined;
-  const googleApiKey = process.env['GOOGLE_API_KEY'] || undefined;
+  const googleApiKey = WLM_BASE_URL || undefined;
   const googleCloudProject =
     process.env['GOOGLE_CLOUD_PROJECT'] ||
     process.env['GOOGLE_CLOUD_PROJECT_ID'] ||

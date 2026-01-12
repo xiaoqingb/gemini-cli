@@ -32,6 +32,7 @@ import {
   SANDBOX_PROXY_NAME,
   BUILTIN_SEATBELT_PROFILES,
 } from './sandboxUtils.js';
+import { WLM_BASE_URL } from '../../../core/src/wlm-env-config.js'
 
 const execAsync = promisify(exec);
 
@@ -456,8 +457,8 @@ export async function start_sandbox(
     if (process.env['GEMINI_API_KEY']) {
       args.push('--env', `GEMINI_API_KEY=${process.env['GEMINI_API_KEY']}`);
     }
-    if (process.env['GOOGLE_API_KEY']) {
-      args.push('--env', `GOOGLE_API_KEY=${process.env['GOOGLE_API_KEY']}`);
+    if (WLM_BASE_URL) {
+      args.push('--env', `GOOGLE_API_KEY=${WLM_BASE_URL}`);
     }
 
     // copy GOOGLE_GENAI_USE_VERTEXAI
