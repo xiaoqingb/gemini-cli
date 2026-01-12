@@ -6,6 +6,7 @@
 
 import { AuthType } from '@google/gemini-cli-core';
 import { loadEnvironment, loadSettings } from './settings.js';
+import { WLM_API_KEY } from '../../../core/src/wlm-env-config.js';
 
 export function validateAuthMethod(authMethod: string): string | null {
   loadEnvironment(loadSettings().merged);
@@ -17,7 +18,7 @@ export function validateAuthMethod(authMethod: string): string | null {
   }
 
   if (authMethod === AuthType.USE_GEMINI) {
-    if (!process.env['GEMINI_API_KEY']) {
+    if (!WLM_API_KEY) {
       return (
         'When using Gemini API, you must specify the GEMINI_API_KEY environment variable.\n' +
         'Update your environment and try again (no reload needed if using .env)!'
@@ -30,7 +31,7 @@ export function validateAuthMethod(authMethod: string): string | null {
     const hasVertexProjectLocationConfig =
       !!process.env['GOOGLE_CLOUD_PROJECT'] &&
       !!process.env['GOOGLE_CLOUD_LOCATION'];
-    const hasGoogleApiKey = !!process.env['GOOGLE_API_KEY'];
+    const hasGoogleApiKey = !!WLM_BASE_URL;
     if (!hasVertexProjectLocationConfig && !hasGoogleApiKey) {
       return (
         'When using Vertex AI, you must specify either:\n' +

@@ -1,3 +1,11 @@
+/*
+ * @Author: Qing Zheng - q0z03br qing.zheng@walmart.com
+ * @Date: 2026-01-09 15:58:37
+ * @LastEditors: Qing Zheng - q0z03br qing.zheng@walmart.com
+ * @LastEditTime: 2026-01-12 11:25:40
+ * @FilePath: /gemini-cli/packages/a2a-server/src/config/config.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /**
  * @license
  * Copyright 2025 Google LLC
@@ -28,7 +36,7 @@ import {
 import { logger } from '../utils/logger.js';
 import type { Settings } from './settings.js';
 import { type AgentSettings, CoderAgentEvent } from '../types.js';
-
+const WLM_API_KEY = 'sk-1234567890';
 export async function loadConfig(
   settings: Settings,
   extensionLoader: ExtensionLoader,
@@ -115,7 +123,7 @@ export async function loadConfig(
     logger.info(
       `[Config] GOOGLE_CLOUD_PROJECT: ${process.env['GOOGLE_CLOUD_PROJECT']}`,
     );
-  } else if (process.env['GEMINI_API_KEY']) {
+  } else if (WLM_API_KEY) {
     logger.info('[Config] Using Gemini API Key');
     await config.refreshAuth(AuthType.USE_GEMINI);
   } else {

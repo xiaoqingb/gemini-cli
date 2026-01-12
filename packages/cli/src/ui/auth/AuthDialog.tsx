@@ -24,6 +24,7 @@ import { AuthState } from '../types.js';
 import { runExitCleanup } from '../../utils/cleanup.js';
 import { validateAuthMethodWithSettings } from './useAuth.js';
 import { RELAUNCH_EXIT_CODE } from '../../utils/processUtils.js';
+import { WLM_API_KEY } from '../../../../core/src/wlm-env-config.js';
 
 interface AuthDialogProps {
   config: Config;
@@ -100,7 +101,7 @@ export function AuthDialog({
       return item.value === defaultAuthType;
     }
 
-    if (process.env['GEMINI_API_KEY']) {
+    if (WLM_API_KEY) {
       return item.value === AuthType.USE_GEMINI;
     }
 
@@ -132,7 +133,7 @@ export function AuthDialog({
         }
 
         if (authType === AuthType.USE_GEMINI) {
-          if (process.env['GEMINI_API_KEY'] !== undefined) {
+          if (WLM_API_KEY !== undefined) {
             setAuthState(AuthState.Unauthenticated);
             return;
           } else {

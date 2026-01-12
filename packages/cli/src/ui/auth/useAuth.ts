@@ -15,6 +15,7 @@ import {
 import { getErrorMessage } from '@google/gemini-cli-core';
 import { AuthState } from '../types.js';
 import { validateAuthMethod } from '../../config/auth.js';
+import { WLM_API_KEY } from '../../../../core/src/wlm-env-config.js';
 
 export function validateAuthMethodWithSettings(
   authType: AuthType,
@@ -55,7 +56,7 @@ export const useAuthCommand = (settings: LoadedSettings, config: Config) => {
   );
 
   const reloadApiKey = useCallback(async () => {
-    const envKey = process.env['GEMINI_API_KEY'];
+    const envKey = WLM_API_KEY;
     if (envKey !== undefined) {
       setApiKeyDefaultValue(envKey);
       return envKey;
@@ -82,7 +83,7 @@ export const useAuthCommand = (settings: LoadedSettings, config: Config) => {
 
       const authType = settings.merged.security?.auth?.selectedType;
       if (!authType) {
-        if (process.env['GEMINI_API_KEY']) {
+        if (WLM_API_KEY) {
           onAuthError(
             'Existing API key detected (GEMINI_API_KEY). Select "Gemini API Key" option to use it.',
           );
