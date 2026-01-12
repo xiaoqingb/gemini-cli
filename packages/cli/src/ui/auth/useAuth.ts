@@ -15,7 +15,7 @@ import {
 import { getErrorMessage } from '@google/gemini-cli-core';
 import { AuthState } from '../types.js';
 import { validateAuthMethod } from '../../config/auth.js';
-import { WLM_API_KEY } from '../../../../core/src/wlm-env-config.js';
+import { WLM_API_KEY, WLM_DEFAULT_AUTH_TYPE } from '../../../../core/src/wlm-env-config.js';
 
 export function validateAuthMethodWithSettings(
   authType: AuthType,
@@ -107,7 +107,7 @@ export const useAuthCommand = (settings: LoadedSettings, config: Config) => {
         return;
       }
 
-      const defaultAuthType = process.env['GEMINI_DEFAULT_AUTH_TYPE'];
+      const defaultAuthType = WLM_DEFAULT_AUTH_TYPE;
       if (
         defaultAuthType &&
         !Object.values(AuthType).includes(defaultAuthType as AuthType)

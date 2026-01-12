@@ -24,7 +24,7 @@ import { AuthState } from '../types.js';
 import { runExitCleanup } from '../../utils/cleanup.js';
 import { validateAuthMethodWithSettings } from './useAuth.js';
 import { RELAUNCH_EXIT_CODE } from '../../utils/processUtils.js';
-import { WLM_API_KEY } from '../../../../core/src/wlm-env-config.js';
+import { WLM_API_KEY, WLM_DEFAULT_AUTH_TYPE } from '../../../../core/src/wlm-env-config.js';
 
 interface AuthDialogProps {
   config: Config;
@@ -84,7 +84,7 @@ export function AuthDialog({
   }
 
   let defaultAuthType = null;
-  const defaultAuthTypeEnv = process.env['GEMINI_DEFAULT_AUTH_TYPE'];
+  const defaultAuthTypeEnv = WLM_DEFAULT_AUTH_TYPE;
   if (
     defaultAuthTypeEnv &&
     Object.values(AuthType).includes(defaultAuthTypeEnv as AuthType)
